@@ -61,15 +61,33 @@ User.findOne({email:req.body.email}).then(data => {
 })
 });
 
-User.put('/profile', (req, res) => {
-  const { firstName, lastName, city, country, description } = req.body;
+// Router.put('/profile', (req, res) => {
+//   const { firstName, lastName, city, country, description } = req.body;
 
-  // mise à jour des données utilisateur firstname, lastName, city, country et description
+//   // mise à jour des données utilisateur firstname, lastName, city, country et description
 
-  res.json({
-    message: 'Profile updated successfully!'
-  });
-});
+//   res.json({
+//     message: 'Profile updated successfully!'
+//   });
+// });
+// Router.post('/reset-password', (req, res) => {
+//   const email = req.body.email;
+
+//   // Send reset password email
+//   sendResetPasswordEmail(email);
+
+//   res.send('Reset password email sent.');
+// });
+
+// Router.post('/update-password', (req, res) => {
+//   const email = req.body.email;
+//   const newPassword = req.body.newPassword;
+
+//   // Update user's password in database
+//   updateUserPassword(email, newPassword);
+
+//   res.send('Password updated.');
+// });
 
 
 module.exports = router;
