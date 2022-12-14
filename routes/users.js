@@ -61,15 +61,7 @@ User.findOne({email:req.body.email}).then(data => {
 })
 });
 
-User.put('/profile', (req, res) => {
-  const { firstName, lastName, city, country, description } = req.body;
 
-  // mise à jour des données utilisateur firstname, lastName, city, country et description
-
-  res.json({
-    message: 'Profile updated successfully!'
-  });
-});
 
 
 module.exports = router;
