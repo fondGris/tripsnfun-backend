@@ -5,6 +5,7 @@ const markerSchema = mongoose.Schema({
   city: String,
   latitude: Number,
   longitude: Number,
+  token: String,
 });
 
 const Marker = mongoose.model('markers', markerSchema);

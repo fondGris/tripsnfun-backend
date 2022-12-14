@@ -12,4 +12,14 @@ router.post('/markers', (req, res) => {
     });
 });
 
+router.get('/getMarkers', (req, res) => {
+    Marker.find().then(data => {
+        if(data) {    
+        res.json({ result : true, markers: data})
+        } else {
+            res.json({ result: false, error: 'Markers not found' });
+          }
+    })
+})
+
 module.exports = router;
