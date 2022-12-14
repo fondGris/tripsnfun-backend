@@ -14,8 +14,8 @@ languages: [String],
 signUpDate: Date,
 description: String,
 userLocation: String,
-token: String, 
-isConnected: Boolean
+token: String,
+isConnected: Boolean,
 trips: [{ type: mongoose.Schema.Types.ObjectId, ref: 'trips' }],
 });
 
