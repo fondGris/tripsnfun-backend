@@ -22,7 +22,7 @@ router.post("/markers", (req, res) => {
       // il met à jour le token en true, si le user se connecte
     } else {
       Marker.updateOne({
-        token: token,
+        
         isConnected: true,
         latitude: latitude,
         longitude: longitude,
