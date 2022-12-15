@@ -29,9 +29,10 @@ router.get("/getMarkers", (req, res) => {
 });
 
 router.put("/status/:token", (req, res) => {
-  Marker.updateOne({ token: req.params.token }, { isConnected: false} , (data) => {
-   res.json({ data: data})
+    Marker.updateOne({ token: req.params.token,isConnected : false })
+    .then(data =>{
+        res.json({result : true,data})
+    })
   });
-});
 
 module.exports = router;
