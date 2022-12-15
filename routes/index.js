@@ -20,7 +20,7 @@ router.post("/markers", (req, res) => {
       });
     } else {
       Marker.updateOne({
-        token: req.params.token,
+        token: token,
         isConnected: true,
         latitude: latitude,
         longitude: longitude,
