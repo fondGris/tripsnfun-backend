@@ -6,6 +6,7 @@ const markerSchema = mongoose.Schema({
   longitude: Number,
   token: String,
   isConnected: Boolean,
+  
 });
 
 const Marker = mongoose.model('markers', markerSchema);

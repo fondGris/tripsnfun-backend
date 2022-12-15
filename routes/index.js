@@ -4,17 +4,30 @@ require("../models/connection");
 const Marker = require("../models/markers");
 
 router.post("/markers", (req, res) => {
-  const { token, userName, latitude, longitude } = req.body;
-  const newMarker = new Marker({
-    token,
-    userName,
-    latitude,
-    longitude,
-    isConnected: true,
-  });
+  const { token, username, latitude, longitude } = req.body;
+  Marker.findOne({ token }).then((data) => {
+    if (data === null) {
+      const newMarker = new Marker({
+        token,
+        username,
+        latitude,
+        longitude,
+        isConnected: true,
+      });
 
-  newMarker.save().then(() => {
-    res.json({ result: true });
+      newMarker.save().then(() => {
+        res.json({ result: true });
+      });
+    } else {
+      Marker.updateOne({
+        token: req.params.token,
+        isConnected: true,
+        latitude: latitude,
+        longitude: longitude,
+      }).then((data) => {
+        res.json({ result: true, data });
+      });
+    }
   });
 });
 
@@ -29,10 +42,11 @@ router.get("/getMarkers", (req, res) => {
 });
 
 router.put("/status/:token", (req, res) => {
-    Marker.updateOne({ token: req.params.token,isConnected : false })
-    .then(data =>{
-        res.json({result : true,data})
-    })
-  });
+  Marker.updateOne({ token: req.params.token, isConnected: false }).then(
+    (data) => {
+      res.json({ result: true, data });
+    }
+  );
+});
 
 module.exports = router;
