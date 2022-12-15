@@ -37,7 +37,7 @@ router.post('/signup', (req, res) => {
       });
 
       newUser.save().then(newDoc => {
-        res.json({ result: true, token: newDoc.token });
+        res.json({ result: true, data: newDoc });
       });
     } else {
       // User already exists in database
@@ -46,16 +46,16 @@ router.post('/signup', (req, res) => {
   });
 });
 
-router.post('/signin', (req, res) => { console.log('OK1')
-  if (!checkBody(req.body, ['email', 'password'])) { console.log(req.body)
+router.post('/signin', (req, res) => { 
+  if (!checkBody(req.body, ['email', 'password'])) { 
     res.json({ result: false, error: 'Missing or empty fields' });
     return;
   }
 
-  User.findOne({ email: req.body.email }).then(data => { console.log('OK2')
-    if (data && bcrypt.compareSync(req.body.password, data.password)) { console.log('OK3')
-      res.json({ result: true, token: data.token });
-    } else { console.log('OK4')
+  User.findOne({ email: req.body.email }).then(data => { 
+    if (data && bcrypt.compareSync(req.body.password, data.password)) { 
+      res.json({ result: true, data: data });
+    } else {
       res.json({ result: false, error: 'User not found or wrong password' });
     }
   })
