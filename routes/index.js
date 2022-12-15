@@ -5,7 +5,7 @@ const Marker = require('../models/markers');
 
 router.post('/markers', (req, res) => {
     const { token, userName, city, latitude, longitude } = req.body;
-    const newMarker = new Marker({ token, userName, city, latitude, longitude });
+    const newMarker = new Marker({ token, userName, city: null, latitude, longitude });
 
     newMarker.save().then(() => {
         res.json({ result: true });
