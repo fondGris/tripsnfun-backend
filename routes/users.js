@@ -7,7 +7,7 @@ const { checkBody } = require('../modules/checkBody')
 const uid2 = require('uid2');
 const bcrypt = require('bcrypt');
 
-
+// route pour s'inscrire, avec le module checkbody pour verifier que les champs ne sont pas vide
 router.post('/signup', (req, res) => { 
   if (!checkBody(req.body, ['email', 'password', 'username'])) { 
     res.json({ result: false, error: 'Missing or empty fields' });
@@ -17,6 +17,7 @@ router.post('/signup', (req, res) => {
   // Check if the user has not already been registrated
   User.findOne({ email: req.body.email }).then(data => { 
     if (data === null) {
+      // si aucun user il va hash le password grace a bcrypt puis crée un nouvel utilisateur
       const hash = bcrypt.hashSync(req.body.password, 10);
 
       const newUser = new User({
@@ -46,13 +47,16 @@ router.post('/signup', (req, res) => {
   });
 });
 
+// route pour permettre le login, avec le module checkbody pour verifier que les champs ne sont pas vide
 router.post('/signin', (req, res) => { 
   if (!checkBody(req.body, ['email', 'password'])) { 
     res.json({ result: false, error: 'Missing or empty fields' });
     return;
   }
 
+  // une fois que tous les champs sont verifiés non vide faire une recherche par rapport au mail du user 
   User.findOne({ email: req.body.email }).then(data => { 
+    // debut de la comparaison du data entrée et celui de la base de donnée avec le module bcrypt
     if (data && bcrypt.compareSync(req.body.password, data.password)) { 
       res.json({ result: true, data: data });
     } else {
