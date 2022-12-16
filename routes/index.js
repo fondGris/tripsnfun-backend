@@ -18,16 +18,7 @@ router.post("/markers", (req, res) => {
       newMarker.save().then(() => {
         res.json({ result: true });
       });
-    } else {
-      Marker.updateOne({
-        token: token,
-        isConnected: true,
-        latitude: latitude,
-        longitude: longitude,
-      }).then((data) => {
-        res.json({ result: true, data });
-      });
-    }
+    } 
   });
 });
 
@@ -42,11 +33,23 @@ router.get("/getMarkers", (req, res) => {
 });
 
 router.put("/status/:token", (req, res) => {
-  Marker.updateOne({ token: req.params.token, isConnected: false }).then(
+  Marker.updateOne({ token: req.params.token}, {isConnected: true }).then(
     (data) => {
       res.json({ result: true, data });
     }
   );
 });
+
+router.put("changeMarker/:token", (req,res) => {
+    Marker.updateOne({
+        token: req.params.token},
+        {
+         isConnected: true,
+         latitude: req.body.latitude,
+         longitude: req.body.longitude,
+       }).then((data) => {
+         res.json({ result: true, data });
+       });
+})
 
 module.exports = router;
