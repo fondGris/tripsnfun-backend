@@ -20,8 +20,7 @@ router.post("/markers", (req, res) => {
         res.json({ result: true });
       });
     } else {
-
-       
+// sinon il mettra à jour avec le token existant la propriété isConnected à true et prendra en compte la nouvelle longitude et latitude 
         Marker.updateOne({
             token},
             {
