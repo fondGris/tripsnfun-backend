@@ -76,10 +76,10 @@ router.get("/getUser/:token", (req, res) => {
 });
 
 router.put('/:token', (req, res) => {
-  const {username, email, firstname, lastName, birthdate, avatar,  city, country, hobbies, description } = req.body;
+  const {username, email, firstname, lastname, birthdate, avatar, city, country, hobbies, description } = req.body;
   User.updateOne({
     token: req.params.token },
-    { username, email, firstname, lastName, birthdate, avatar,  city, country, hobbies, description }
+    { username, email, firstname, lastname, birthdate, avatar, city, country, hobbies, description }
   ).then((data) => {
     res.json({result: true, data : data})
   });
