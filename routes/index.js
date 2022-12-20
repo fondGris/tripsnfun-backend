@@ -30,7 +30,7 @@ router.post("/markers", (req, res) => {
            }).then((data) => {
              res.json({ result: true, data });
            });
-    
+
     }
   });
 });
@@ -46,7 +46,7 @@ router.get("/getMarkers", (req, res) => {
 });
 // route pour la deconnexion, changement du token a false.
 router.put("/status/:token", (req, res) => {
-  Marker.updateOne({ token: req.params.token}, {isConnected: true }).then(
+  Marker.updateOne({ token: req.params.token}, { isConnected: false }).then(
     (data) => {
       res.json({ result: true, data });
     }
@@ -57,7 +57,7 @@ router.put("changeMarker/:token", (req,res) => {
     Marker.updateOne({
         token: req.params.token},
         {
-         isConnected: true,
+         isConnected: false,
          latitude: req.body.latitude,
          longitude: req.body.longitude,
        }).then((data) => {

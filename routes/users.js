@@ -48,8 +48,8 @@ router.post('/signup', (req, res) => {
 });
 
 // route pour permettre le login, avec le module checkbody pour verifier que les champs ne sont pas vide
-router.post('/signin', (req, res) => { 
-  if (!checkBody(req.body, ['email', 'password'])) { 
+router.post('/signin', (req, res) => {
+  if (!checkBody(req.body, ['email', 'password'])) {
     res.json({ result: false, error: 'Missing or empty fields' });
     return;
   }
@@ -65,33 +65,26 @@ router.post('/signin', (req, res) => {
   })
 });
 
-// Router.put('/profile', (req, res) => {
-//   const { firstName, lastName, city, country, description } = req.body;
-
-//   // mise à jour des données utilisateur firstname, lastName, city, country et description
-
-//   res.json({
-//     message: 'Profile updated successfully!'
+// Update user's informations
+// router.put("/:token", (req, res) => {
+//   User.findByIdAndUpdate( req.params.id, req.body,  ).then((data) => {
+//     if(data){
+//       res.json({ result: true, data: data });
+//     } else {
+//       res.json({ result: false, error: "User not found" })
+//     }
 //   });
 // });
-// Router.post('/reset-password', (req, res) => {
-//   const email = req.body.email;
 
-//   // Send reset password email
-//   sendResetPasswordEmail(email);
-
-//   res.send('Reset password email sent.');
-// });
-
-// Router.post('/update-password', (req, res) => {
-//   const email = req.body.email;
-//   const newPassword = req.body.newPassword;
-
-//   // Update user's password in database
-//   updateUserPassword(email, newPassword);
-
-//   res.send('Password updated.');
-// });
+router.put('/:token', (req, res) => {
+  const {username, email, firstname, lastName, birthdate, avatar,  city, country, hobbies, description } = req.body;
+  User.updateOne({
+    token: req.params.token },
+    { username, email, firstname, lastName, birthdate, avatar,  city, country, hobbies, description }
+  ).then((data) => {
+    res.json({result: true, data : data})
+  });
+});
 
 
 module.exports = router;
