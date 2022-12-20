@@ -25,8 +25,8 @@ router.post('/signup', (req, res) => {
         email: req.body.email,
         password: hash,
         token: uid2(32),
-        firstName: null,
-        lastName: null,
+        firstname: null,
+        lastname: null,
         birthdate: null,
         avatar: null,
         city: null,
@@ -76,10 +76,10 @@ router.get("/getUser/:token", (req, res) => {
 });
 
 router.put('/:token', (req, res) => {
-  const {username, email, firstname, lastName, birthdate, avatar,  city, country, hobbies, description } = req.body;
+  const {username, email, firstname, lastname, birthdate, avatar, city, country, hobbies, description } = req.body;
   User.updateOne({
     token: req.params.token },
-    { username, email, firstname, lastName, birthdate, avatar,  city, country, hobbies, description }
+    { username, email, firstname, lastname, birthdate, avatar, city, country, hobbies, description }
   ).then((data) => {
     res.json({result: true, data : data})
   });
