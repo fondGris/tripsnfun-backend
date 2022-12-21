@@ -1,6 +1,11 @@
 var express = require("express");
 var router = express.Router();
 require("../models/connection");
+
+const cloudinary = require('cloudinary').v2;
+const uniqid = require('uniqid');
+const fs = require('fs');
+
 const Marker = require("../models/markers");
 
 // route pour crée et gardé une localisation d un utilisateur, si c'etait null,
@@ -64,5 +69,21 @@ router.put("changeMarker/:token", (req,res) => {
          res.json({ result: true, data });
        });
 })
+
+// photo upload
+router.post('/upload', async (req, res) => {
+  const photoPath = `./tmp/${uniqid()}.jpg`;
+  const resultMove = await req.files.photoFromFront.mv(photoPath);
+
+  if (!resultMove) {
+    const resultCloudinary = await cloudinary.uploader.upload(photoPath);
+    res.json({ result: true, url: resultCloudinary.secure_url });
+  } else {
+    res.json({ result: false, error: resultMove });
+  }
+
+  fs.unlinkSync(photoPath);
+
+});
 
 module.exports = router;
