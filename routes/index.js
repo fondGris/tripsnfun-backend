@@ -73,14 +73,14 @@ router.put("changeMarker/:token", (req,res) => {
 // photo upload
 router.post('/upload', async (req, res) => {
   // const photoPath = `./tmp/${uniqid()}.jpg`;
-  // const photoPath = `./tmp/${uniqid()}.jpg`
-  // const resultMove = await req.files.photoFromFront.mv(photoPath);
-  const resultMove = await req.files.photoFromFront;
+  const photoPath = `./tmp/${uniqid()}.jpg`
+  const resultMove = await req.files.photoFromFront.mv(photoPath);
+  // const resultMove = await req.files.photoFromFront;
 
     console.log("l' IMAGE ==> ", req.files.photoFromFront.data);
 
     if (resultMove) {
-      // const resultCloudinary = await cloudinary.uploader.upload(photoPath);
+      const resultCloudinary = await cloudinary.uploader.upload(photoPath);
 
       res.json({ result: true, url: resultCloudinary.secure_url });
     } else {
