@@ -76,7 +76,8 @@ router.post('/upload', async (req, res) => {
   const resultMove = await req.files.photoFromFront.mv(photoPath);
 
   if (!resultMove) {
-    const resultCloudinary = await cloudinary.uploader.upload(photoPath);
+    const resultCloudinary = await cloudinary.uploader.upload(req.files.photoFromFront);
+    console.log(photoPath);
     res.json({ result: true, url: resultCloudinary.secure_url });
   } else {
     res.json({ result: false, error: resultMove });
