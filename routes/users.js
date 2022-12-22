@@ -35,6 +35,7 @@ router.post('/signup', (req, res) => {
         description: 'Description',
         signUpDate: new Date(),
         userLocation: null,
+        hobbies: null,
       });
 
       newUser.save().then(newDoc => {
