@@ -87,7 +87,7 @@ router.post('/upload', async (req, res) => {
       res.json({ result: false, error: resultMove });
     }
 
-    // fs.unlinkSync(photoPath);
+    fs.unlinkSync(photoPath);
   });
 
 module.exports = router;
