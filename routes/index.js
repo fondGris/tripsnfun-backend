@@ -59,32 +59,33 @@ router.put("/status/:token", (req, res) => {
 });
 
 router.put("changeMarker/:token", (req,res) => {
-    Marker.updateOne({
-        token: req.params.token},
-        {
-         isConnected: false,
-         latitude: req.body.latitude,
-         longitude: req.body.longitude,
-       }).then((data) => {
-         res.json({ result: true, data });
-       });
+  Marker.updateOne({
+    token: req.params.token},
+    {
+      isConnected: false,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
+    }).then((data) => {
+      res.json({ result: true, data });
+    });
 })
 
 // photo upload
 router.post('/upload', async (req, res) => {
-  const photoPath = `./tmp/${uniqid()}.jpg`;
+  // const photoPath = `./tmp/${uniqid()}.jpg`;
+  const photoPath = `./tmp/${uniqid()}.jpg`
   const resultMove = await req.files.photoFromFront.mv(photoPath);
 
-  if (!resultMove) {
-    const resultCloudinary = await cloudinary.uploader.upload(req.files.photoFromFront);
-    console.log(photoPath);
-    res.json({ result: true, url: resultCloudinary.secure_url });
-  } else {
-    res.json({ result: false, error: resultMove });
-  }
+    console.log("l' IMAGE ==> ", photoPath);
 
-  fs.unlinkSync(photoPath);
+    if (!resultMove) {
+      const resultCloudinary = await cloudinary.uploader.upload(photoPath);
+      res.json({ result: true, url: resultCloudinary.secure_url });
+    } else {
+      res.json({ result: false, error: resultMove });
+    }
 
-});
+    fs.unlinkSync(photoPath);
+  });
 
 module.exports = router;
