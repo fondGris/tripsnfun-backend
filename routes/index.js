@@ -74,7 +74,7 @@ router.put("changeMarker/:token", (req,res) => {
 router.post('/upload', async (req, res) => {
   const photoPath = `./tmp/${uniqid()}.jpg`;
   const resultMove = await req.files.photoFromFront.mv(photoPath);
-
+console.log(photoPath)
   if (!resultMove) {
     const resultCloudinary = await cloudinary.uploader.upload(photoPath);
     res.json({ result: true, url: resultCloudinary.secure_url });
