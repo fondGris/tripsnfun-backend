@@ -66,6 +66,7 @@ router.post('/signin', (req, res) => {
   })
 });
 
+// Récupère les toutes les information d'un user en fonction de son token
 router.get("/getUser/:token", (req, res) => {
   User.findOne({ token: req.params.token }).then((data) => {
     if (data) {
@@ -75,6 +76,8 @@ router.get("/getUser/:token", (req, res) => {
     }
   });
 });
+
+// Modifie les information d'un user
 
 router.put('/:token', (req, res) => {
   const {username, email, firstname, lastname, age, avatar, city, country, hobbies, description } = req.body;

@@ -58,6 +58,7 @@ router.put("/status/:token", (req, res) => {
   );
 });
 
+//route pour mettre à jour son marker en fonction du token
 router.put("changeMarker/:token", (req,res) => {
   Marker.updateOne({
     token: req.params.token},
